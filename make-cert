@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker container run --rm -v $(pwd):/out mikesir87/create-cert "$@"
