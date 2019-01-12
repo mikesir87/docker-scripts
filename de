@@ -1,0 +1,28 @@
+#!/bin/bash
+
+##############################################
+#                                            #
+#  This is a small script that searches for  #
+#  a container and then execs the provided   #
+#  command, as I do this very often.         #
+#                                            #
+#  Example:                                  #
+#    de postgres psql -U dev                 #
+#                                            #
+#  This would find a container with either   # 
+#  a name or image of 'postgres' and exec    #
+#  `psql -U dev`                             #
+#                                            #
+#  It most likely could be shortened to be:  #
+#    de post psql -U dev                     #
+#                                            #
+#  And... de simply stands for `docker exec` #
+#                                            #
+##############################################
+
+GREP_ARG=$1
+shift
+
+CONTAINER_ID=$(docker ps | grep "$GREP_ARG" | awk '{print $1}')
+
+docker exec -ti $CONTAINER_ID "$@"
