@@ -1,0 +1,20 @@
+#!/bin/bash
+
+DIR=$(pwd)
+CONTAINER_ID=$(docker container run -dv $DIR:/var/www/html -P php:apache)
+PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "80/tcp") 0).HostPort}}' $CONTAINER_ID)
+
+echo "------------------------------------------"
+echo "  PHP is now running on port $PORT"
+echo "  URL: http://localhost:$PORT"
+echo "  Container ID: $CONTAINER_ID"
+echo "------------------------------------------"
+
+trap 'kill -TERM $PID' TERM INT
+docker logs -f $CONTAINER_ID &
+PID=`ps -axf | grep logs | grep $CONTAINER_ID | awk '{print $2}'` 
+wait $PID
+
+echo -en "\nRemoving container now..."
+docker container rm -f $CONTAINER_ID > /dev/null
+echo "  Done!"

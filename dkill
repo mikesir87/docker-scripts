@@ -1,0 +1,18 @@
+#!/bin/bash
+
+##############################################
+#                                            #
+#  This is a small script that searches for  #
+#  a container and then kills it dead.       # 
+#                                            #
+#  Example:                                  #
+#    dstop postgres                          #
+#                                            #
+##############################################
+
+GREP_ARG=$1
+shift
+
+CONTAINER_ID=$(docker ps | grep "$GREP_ARG" | awk '{print $1}')
+
+docker rm -f $CONTAINER_ID

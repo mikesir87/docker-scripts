@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker container run --rm -ti \
+  -v $HOME/.aws:/root/.aws \
+  -v $(pwd):/aws \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -p 3000:3000 \
+  mikesir87/aws-sam-cli \
+  sam "$@"

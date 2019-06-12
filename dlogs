@@ -1,0 +1,19 @@
+#!/bin/bash
+
+##############################################
+#                                            #
+#  This is a small script that searches for  #
+#  a container and then starts following its # 
+#  logs.                                     #
+#                                            #
+#  Example:                                  #
+#    de postgres                             #
+#                                            #
+##############################################
+
+GREP_ARG=$1
+shift
+
+CONTAINER_ID=$(docker ps | grep "$GREP_ARG" | awk '{print $1}')
+
+docker logs -f $CONTAINER_ID

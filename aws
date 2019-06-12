@@ -3,5 +3,5 @@
 docker container run --rm -ti \
   --network=host \
   -v $HOME/.aws:/root/.aws \
-  -v $(pwd):/aws mikesir87/aws-cli \
+  -v $(pwd):/aws mikesir87/aws-cli:1.16.173 \
   aws "$@"

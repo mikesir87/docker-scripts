@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker container ps --format "table {{.ID}}\t{{.Names}}\t{{.RunningFor}}\t{{.Status}}" "$@"
