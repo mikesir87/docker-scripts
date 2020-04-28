@@ -1,3 +1,6 @@
 #!/bin/bash
 
-docker container run --rm -tiv $(pwd):/app "$@" alpine
+docker container run \
+  --rm -tiv $(pwd):/app \
+  --network=host \
+  "$@" alpine
