@@ -1,7 +1,12 @@
 #!/bin/bash
 
+PROFILE=${AWS_PROFILE:-default}
+
 docker container run --rm -ti \
   --network=host \
+  -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
+  -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
+  -e AWS_PROFILE=$PROFILE \
   -v $HOME/.aws:/root/.aws \
-  -v $(pwd):/aws mikesir87/aws-cli:1.16.173 \
+  -v $(pwd):/aws mikesir87/aws-cli:v1 \
   aws "$@"
